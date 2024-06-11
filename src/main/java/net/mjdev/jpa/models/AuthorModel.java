@@ -22,7 +22,7 @@ public class AuthorModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // avoid serialization problems
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY) // one author several books
     private Set<BookModel> books = new HashSet<>();
 }

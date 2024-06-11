@@ -22,7 +22,8 @@ public class PublisherModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
-    private Set<BookModel> books = new HashSet<>();
+    // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // just writing
+    // A publisher has several books
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY) // LAZY or EAGER - lazy loading or loading eager
+    private Set<BookModel> books = new HashSet<>(); // book collection type Set
 }

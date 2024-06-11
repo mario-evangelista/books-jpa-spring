@@ -22,18 +22,19 @@ public class BookModel implements Serializable {
     private String title;
 
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne//(fetch = FetchType.LAZY)
-    @JoinColumn(name = "publisher_id")
+    @ManyToOne//(fetch = FetchType.LAZY) // several books, one publisher
+    @JoinColumn(name = "publisher_id") // foreign key
     private PublisherModel publisher;
 
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToMany//(fetch = FetchType.LAZY)
+    @ManyToMany//(fetch = FetchType.LAZY) // one author several books
     @JoinTable(
             name = "tb_book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<AuthorModel> authors = new HashSet<>();
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
+    // a book has only one review
+    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL) // CascadeType.ALL -> all linked relationships
     private ReviewModel review;
 }
